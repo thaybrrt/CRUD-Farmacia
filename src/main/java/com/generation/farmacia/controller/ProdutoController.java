@@ -53,13 +53,12 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
 	}
 	
-	@PostMapping
-	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto){
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
 		if (categoriaRepository.existsById(produto.getCategoria().getId()))
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(produtoRepository.save(produto));
-		
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe!", null);
+			return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria não existe!!!", null);
 	}
 	
 	@PutMapping
